@@ -87,7 +87,7 @@ export const renderRecipe = recipe => {
                     ${recipe.ingredients.map(el => createIngredient(el)).join('')}
                 </ul>
 
-                <button class="btn-small recipe__btn">
+                <button class="btn-small recipe__btn recipe__btn-add">
                     <svg class="search__icon">
                         <use href="img/icons.svg#icon-shopping-cart"></use>
                     </svg>
@@ -101,7 +101,7 @@ export const renderRecipe = recipe => {
                     This recipe was carefully designed and tested by
                     <span class="recipe__by">${recipe.author}</span>. Please check out directions at their website.
                 </p>
-                <a class="btn-small recipe__btn" href="${recipe.url}" target="_blank">
+                <a class="btn-small recipe__btn recipe__btn-info" href="${recipe.url}" target="_blank">
                     <span>Directions</span>
                     <svg class="search__icon">
                         <use href="img/icons.svg#icon-triangle-right"></use>
