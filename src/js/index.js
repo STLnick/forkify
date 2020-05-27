@@ -134,14 +134,8 @@ elements.shopping.addEventListener('click', e => {
 /** 
 * LIKES CONTROLLER
 */
-
-// TESTING
-state.likes = new Likes();
-likesView.toggleLikesMenu(state.likes.getNumLikes());
-/* * * * * * * * * * * * * */
-
 const controlLike = () => {
-    //if (!state.likes) state.likes = new Likes();
+    if (!state.likes) state.likes = new Likes();
     const currentId = state.recipe.id;
 
     // If the user has NOT yet liked this recipe
@@ -170,19 +164,32 @@ const controlLike = () => {
     likesView.toggleLikesMenu(state.likes.getNumLikes());
 }
 
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+    // Restore previous likes
+    state.likes.readStorage();
+    // Toggle likes menu button
+    likesView.toggleLikesMenu(state.likes.getNumLikes());
+    // Render likes to menu
+    state.likes.likes.forEach(like => likesView.renderLike(like));
+});
 
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-dec, .btn-dec *')) {
-        if (state.recipe.servings > 1) {
+        // Decrese Button clicked
+        if (state.recipe.servings > 1) {    // Only decrease until zero - cannot be negative
             state.recipe.updateServings('dec');
             recipeView.updateServingsIngredients(state.recipe);
         }
     } else if (e.target.matches('.btn-inc, .btn-inc *')) {
+        // Increase Button clicked
         state.recipe.updateServings('inc');
         recipeView.updateServingsIngredients(state.recipe);
     } else if (e.target.matches('.recipe__btn-add, .recipe__btn-add *')) {
+        // Add Ingredients Button clicked
         controlList();
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+        // Like Button clicked
         controlLike();
     }
 })
